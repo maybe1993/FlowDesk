@@ -1,0 +1,11 @@
+node_modules/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+data/backups/
+.DS_Store
+*.log
+
+# 运行期产物
+/data/

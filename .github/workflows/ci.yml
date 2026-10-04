@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+          check-latest: true
+
+      - name: 环境自检
+        run: node bin/flowdesk.js doctor
+
+      - name: 生成演示数据
+        run: node bin/flowdesk.js seed --reset
+        env:
+          PORT: '4399'
+
+      - name: 冒烟测试（130 项 API 断言）
+        run: bash scripts/smoke.sh
+        env:
+          PORT: '4399'
+
+      - name: 前端 ES Module 导入自检
+        run: node scripts/check-imports.cjs
+
+      - name: 全量语法检查
+        run: |
+          for f in $(find server bin public scripts -name '*.js' | sort); do
+            node --check "$f" || exit 1
+          done
+          echo "all files parse OK"

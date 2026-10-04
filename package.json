@@ -1,0 +1,27 @@
+{
+  "name": "flowdesk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FlowDesk 工作台 — 个人 + 团队一体化工作管理工具（零依赖）",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node bin/flowdesk.js",
+    "seed": "node bin/flowdesk.js seed",
+    "reset": "node bin/flowdesk.js seed --reset",
+    "doctor": "node bin/flowdesk.js doctor",
+    "loadtest": "node scripts/loadtest-seed.js",
+    "perf": "bash scripts/perf.sh",
+    "concurrent": "bash scripts/concurrency.sh"
+  },
+  "keywords": [
+    "productivity",
+    "task",
+    "calendar",
+    "project",
+    "team"
+  ],
+  "license": "MIT"
+}

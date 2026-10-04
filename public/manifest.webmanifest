@@ -1,0 +1,24 @@
+{
+  "name": "FlowDesk 工作台",
+  "short_name": "FlowDesk",
+  "description": "个人与团队一体化工作管理：日程、任务、项目、团队与自动排期建议",
+  "start_url": "/#/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0d0f13",
+  "theme_color": "#0d0f13",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iMjQiIGZpbGw9IiM2MzY2ZjEiLz50ZXh0IHg9IjUwIiB5PSI3MiIgZm9udC1zaXplPSI1OCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Rjwvc3ZnPg==",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "今日", "url": "/#/today" },
+    { "name": "新建任务", "url": "/#/tasks/new" },
+    { "name": "智能安排", "url": "/#/planner" }
+  ]
+}
