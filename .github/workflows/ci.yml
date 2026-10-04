@@ -27,13 +27,27 @@ jobs:
 
       - name: 生成演示数据
         run: node bin/flowdesk.js seed --reset
-        env:
-          PORT: '4399'
 
-      - name: 冒烟测试（130 项 API 断言）
-        run: bash scripts/smoke.sh
-        env:
-          PORT: '4399'
+      # 服务与测试必须在同一个 step 内：GitHub Actions 每个 step 是独立
+      # shell，后台进程会在 step 结束时被回收。
+      - name: 启动被测实例并跑冒烟测试
+        run: |
+          FLOWDESK_NO_OPEN=1 PORT=4173 node bin/flowdesk.js &
+          SRV=$!
+          trap 'kill $SRV 2>/dev/null || true' EXIT
+          ready=0
+          for i in $(seq 1 40); do
+            if curl -sf -o /dev/null http://127.0.0.1:4173/api/bootstrap; then
+              ready=1; break
+            fi
+            sleep 0.5
+          done
+          if [ "$ready" != "1" ]; then
+            echo "::error::server failed to start on 4173"
+            exit 1
+          fi
+          echo "server ready"
+          BASE=http://127.0.0.1:4173 bash scripts/smoke.sh
 
       - name: 前端 ES Module 导入自检
         run: node scripts/check-imports.cjs
